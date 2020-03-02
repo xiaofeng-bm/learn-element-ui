@@ -1,0 +1,23 @@
+@import './config.scss';
+
+// base 
+@mixin b($block) {
+  $B: $namespace+'-'+$block;
+
+  .#{$B} {
+    @content;
+  }
+}
+// modifier 
+@mixin m($modifier) {
+  $currentSelector: '';
+  @each $unit in $modifier {
+    $currentSelector: #{$currentSelector + & + $modifier-separator + $unit + ','};
+  }
+  // 像上到根节点
+  @at-root {
+    #{$currentSelector} {
+      @content;
+    }
+  }
+}
