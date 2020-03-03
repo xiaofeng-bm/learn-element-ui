@@ -1,33 +1,7 @@
 @import "./common/var.scss";
 @import "./mixins/mixins.scss";
 @import "./mixins/utils.scss";
-
-@mixin button-variant($color, $background-color, $border-color) {
-  color: $color;
-  background-color: $background-color;
-  border-color: $border-color;
-
-  &:hover,
-  &:focus {
-    background: mix($--color-white, $background-color, $--button-hover-tint-percent);
-    border-color: mix($--color-white, $border-color, $--button-hover-tint-percent);
-    color: $color;
-  }
-
-  &:active {
-    background: mix($--color-black, $background-color, $--button-active-shade-percent);
-    border-color: mix($--color-black, $border-color, $--button-active-shade-percent);
-    color: $color;
-    outline: none;
-  }
-  // 目前没发现啥卵用
-  &.is-active {
-    background: mix($--color-black, $background-color, $--button-active-shade-percent);
-    border-color: mix($--color-black, $border-color, $--button-active-shade-percent);
-    color: $color;
-  }
-
-}
+@import "./mixins/button";
 
 @include b(button) {
   line-height: 1;
@@ -47,6 +21,18 @@
 
   @include utils-user-select(none);
 
+  // 相邻兄弟选择器： 添加两个按钮间的10px距离
+  & + & {
+    margin-left: 10px;
+  }
+
+  @include button-size(
+    $--button-padding-vertical,
+    $--button-padding-horizontal,
+    $--button-font-size,
+    $--button-border-radius
+  );
+
   &:hover,
   &:focus {
     color: $--color-primary;
@@ -64,6 +50,87 @@
     border: 0;
   }
 
+  & [class*="el-icon-"] {
+    & + span {
+      margin-left: 5px;
+    }
+  }
+
+  @include when(plain) {
+    &:hover,
+    &:focus {
+      background: $--color-white;
+      border-color: $--color-primary;
+      color: $--color-primary;
+    }
+
+    &:active {
+      background: $--color-white;
+      border-color: mix($--color-black, $--color-primary, $--button-active-shade-percent);
+      color: mix($--color-black, $--color-primary, $--button-active-shade-percent);
+      outline: none;
+    }
+  }
+
+  @include when(active) {
+    color: mix($--color-black, $--color-primary, $--button-active-shade-percent);
+    border-color: mix($--color-black, $--color-primary, $--button-active-shade-percent);
+  }
+
+  @include when(disabled) {
+    &,
+    &:hover,
+    &:focus {
+      color: $--button-disabled-font-color;
+      cursor: not-allowed;
+      background-image: none;
+      background-color: $--button-disabled-background-color;
+      border-color: $--button-disabled-border-color;
+    }
+
+    // 这里我个人感觉和下面的@include m(text)中的background重叠了
+    &.el-button--text {
+      background-color: transparent;
+    }
+
+    &.is-plain {
+      &,
+      &:hover,
+      &:focus {
+        background-color: $--color-white;
+        border-color: $--button-disabled-border-color;
+        color: $--button-disabled-font-color;
+      }
+    }
+  }
+
+  @include when(loading) {
+    position: relative;
+    pointer-events: none;
+
+    &:before {
+      pointer-events: none;
+      content: "";
+      position: absolute;
+      left: -1px;
+      top: -1px;
+      right: -1px;
+      bottom: -1px;
+      border-radius: inherit;
+      background-color: rgba(255, 255, 255, 0.35);
+    }
+  }
+
+  @include when(round) {
+    border-radius: 20px;
+    padding: 12px 23px;
+  }
+  @include when(circle) {
+    border-radius: 50%;
+    padding: $--button-padding-vertical;
+  }
+
+  // type
   @include m(primary) {
     @include button-variant(
       $--button-primary-font-color,
@@ -94,5 +161,58 @@
   }
   @include m(info) {
     @include button-variant($--button-info-font-color, $--button-info-background-color, $--button-info-border-color);
+  }
+
+  @include m(text) {
+    color: $--color-primary;
+    background: transparent;
+    border-color: transparent;
+
+    &:hover,
+    &:focus {
+      color: mix($--color-white, $--color-primary, $--button-hover-tint-percent);
+      border-color: transparent;
+      background-color: transparent;
+    }
+
+    &:active {
+      color: mix($--color-black, $--color-primary, $--button-active-shade-percent);
+      border-color: transparent;
+      background-color: transparent;
+    }
+
+    &.is-disabled,
+    &.is-disabled:hover,
+    &.is-disabled:focus {
+      border-color: transparent;
+    }
+  }
+
+  // size
+  @include m(medium) {
+    @include button-size(
+      $--button-medium-padding-vertical,
+      $--button-medium-padding-horizontal,
+      $--button-medium-font-size,
+      $--button-medium-border-radius
+    );
+  }
+
+  @include m(small) {
+    @include button-size(
+      $--button-small-padding-vertical,
+      $--button-small-padding-horizontal,
+      $--button-small-font-size,
+      $--button-small-border-radius
+    );
+  }
+
+  @include m(mini) {
+    @include button-size(
+      $--button-mini-padding-vertical,
+      $--button-mini-padding-horizontal,
+      $--button-mini-font-size,
+      $--button-mini-border-radius
+    );
   }
 }
