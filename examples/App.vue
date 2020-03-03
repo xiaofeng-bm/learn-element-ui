@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    hello world
+    <el-button>百度一下</el-button>
   </div>
 </template>
 
