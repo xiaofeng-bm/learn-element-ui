@@ -4,7 +4,7 @@ import router from './router';
 
 // 引入element
 import Element from '@/index.js';
-import '../packages/theme-chalk/src/index.scss';
+// import '../packages/theme-chalk/src/index.scss';
 Vue.use(Element);
 
 

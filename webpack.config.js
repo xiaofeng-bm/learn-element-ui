@@ -17,6 +17,7 @@ module.exports = {
   // 开启source-map 
   devtool: 'source-map',
   devServer: {
+    port: 8081,
     // 告诉服务器从哪个目录中提供内容
     contentBase: path.resolve(__dirname, './dist'),
     // dev-server启动后自动打开浏览器

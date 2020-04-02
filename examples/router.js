@@ -14,6 +14,21 @@ export default new Router({
       path: '/button',
       name: 'button',
       component: Button
+    },
+    {
+      path: '/layout',
+      name: 'layout',
+      component: () => import('./views/layout.vue')
+    },
+    {
+      path: '/input',
+      name: 'input',
+      component: () => import('./views/input.vue')
+    },
+    {
+      path: '/notify',
+      name: 'notify',
+      component: () => import('./views/notify.vue')
     }
   ]
 })

@@ -1,8 +1,13 @@
 import Button from '../packages/button/index';
+import Row from '../packages/row/index';
+import Col from '../packages/col/index';
+import Notification from '../packages/notification/index';
 
 
 const components = [
-  Button
+  Button,
+  Row,
+  Col
 ]
 
 function install(Vue, opts = {}) {
@@ -16,6 +21,8 @@ function install(Vue, opts = {}) {
     size: opts.size || '',
     zIndex: opts.zIndex || 2000
   }
+
+  Vue.prototype.$notify = Notification;
 }
 
 export default {

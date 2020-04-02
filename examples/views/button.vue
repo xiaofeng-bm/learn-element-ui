@@ -1,10 +1,7 @@
 <template>
   <div>
     <el-button>百度一下</el-button>
-    <el-button type="primary" disabled>
-      <a href="">aa</a>
-      <p>ss</p>
-    </el-button>
+    <el-button type="primary" disabled>百度一下</el-button>
     <el-button type="primary" round>百度一下(primary, round)</el-button>
     <el-button type="primary" circle></el-button>
     <el-button type="info" size="mini">百度一下(info, mini)</el-button>
